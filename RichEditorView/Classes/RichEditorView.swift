@@ -74,6 +74,11 @@ private let DefaultInnerLineHeight: Int = 28
     var isOpenKeyBoard = false
     var xPosition : Float = 0.0
     var yPosition : Float = 0.0
+    
+    
+    var lastXPosition: Float = 0.0
+    var lastYPosition: Float = 0.0
+
     open override var inputAccessoryView: UIView? {
         get { return webView.accessoryView }
         set { webView.accessoryView = newValue }
@@ -304,6 +309,9 @@ private let DefaultInnerLineHeight: Int = 28
         }
     }
     
+    public func focusAtLastPoint() {
+        runJS("RE.focusAtPoint(\(lastXPosition), \(lastYPosition));")
+    }
     public func removeFormat() {
         runJS("RE.removeFormat();")
     }
@@ -674,6 +682,19 @@ private let DefaultInnerLineHeight: Int = 28
 //        }else if method.hasPrefix("Still while loop") {
 //            print("Still while loop")
 //        }else
+        
+        self.getselectedPosition { (str) in
+            print("getselectedPosition",str)
+            let data = str.components(separatedBy: ",")
+            if data.count >= 4{
+                if let x = Float(data[0]) {
+                    self.lastXPosition = x
+                }
+                if let y = Float(data[1]) {
+                    self.lastYPosition = y
+                }
+            }
+        }
         if method.hasPrefix("ready") {
            // If loading for the first time, we have to set the content HTML to be displayed
            if !isEditorLoaded {
