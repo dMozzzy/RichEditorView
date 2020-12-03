@@ -429,7 +429,7 @@ private let DefaultInnerLineHeight: Int = 28
     }
     
     public func insertLink(_ href: String, title: String) {
-        runJS("RE.prepareInsert();")
+//        runJS("RE.prepareInsert();")
         runJS("RE.insertLink('\(href.escaped)', '\(title.escaped)');")
     }
     

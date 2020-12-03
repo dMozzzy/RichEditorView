@@ -269,39 +269,10 @@ RE.insertHTML = function(html) {
     document.execCommand('insertHTML', false, html);
 };
 
-//RE.insertLink = function(url, title) {
-//    RE.restorerange();
-//    var sel = document.getSelection();
-//    if (sel.toString().length !== 0) {
-//        if (sel.rangeCount) {
-//
-//            var el = document.createElement("a");
-//            el.setAttribute("href", url);
-//            el.setAttribute("title", title);
-//
-//            var range = sel.getRangeAt(0).cloneRange();
-//            range.surroundContents(el);
-//            sel.removeAllRanges();
-//            sel.addRange(range);
-//        }
-//    }
-//    RE.callback("input");
-//};
-
 RE.insertLink = function(url, title) {
     RE.restorerange();
-    var sel = document.getSelection();
-    if (sel.toString().length == 0) {
-        document.execCommand("insertHTML",false,"<a href='"+url+"'>"+title+"</a>");
-    } else if (sel.rangeCount) {
-       var el = document.createElement("a");
-       el.setAttribute("href", url);
-       el.setAttribute("title", title);
-       var range = sel.getRangeAt(0).cloneRange();
-       range.surroundContents(el);
-       sel.removeAllRanges();
-       sel.addRange(range);
-   }
+    var html = '<iframe width="300" height="300" src="' + url + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>'
+    RE.insertHTML(html);
     RE.callback("input");
 }
 RE.prepareInsert = function() {
