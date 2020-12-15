@@ -269,12 +269,20 @@ RE.insertHTML = function(html) {
     document.execCommand('insertHTML', false, html);
 };
 
-RE.insertLink = function(url, title) {
+RE.insertLink = function(url) {
     RE.restorerange();
     var html = '<iframe width="300" height="300" src="' + url + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>'
     RE.insertHTML(html);
     RE.callback("input");
 }
+
+RE.loadImage = function(url) {
+    RE.restorerange();
+    var html = '<img width="300" height="300" src="' + url + '">';
+    RE.insertHTML(html);
+    RE.callback("input");
+}
+
 RE.prepareInsert = function() {
     RE.backuprange();
 };
