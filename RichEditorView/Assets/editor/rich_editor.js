@@ -283,6 +283,14 @@ RE.loadImage = function(url) {
     RE.callback("input");
 }
 
+RE.checkImageGifURL = function(url) {
+    var matchedURl = url.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpe?g|gif|png)/g);
+    if(matchedURl != null){
+        return matchedURl[0];
+    }
+    return "";
+}
+
 RE.prepareInsert = function() {
     RE.backuprange();
 };

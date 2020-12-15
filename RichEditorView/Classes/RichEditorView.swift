@@ -429,13 +429,13 @@ private let DefaultInnerLineHeight: Int = 28
     }
     
     public func insertLink(_ href: String) {
-//        runJS("RE.prepareInsert();")
-        runJS("RE.insertLink('\(href.escaped)');")
-    }
-    
-    public func loadImage(_ href: String) {
-//        runJS("RE.prepareInsert();")
-        runJS("RE.loadImage('\(href.escaped)');")
+        runJS("RE.checkImageGifURL('\(href.escaped)');") { value in
+            if value == ""{
+                self.runJS("RE.insertLink('\(href.escaped)');")
+            }else{
+                self.runJS("RE.loadImage('\(value)');")
+            }
+        }
     }
     
     public func focus() {
